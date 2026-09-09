@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>HelpCar 🚗 | Socorro & Mecânica Móvel - Rio de Janeiro e Mangaratiba</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #0b1120 0%, #0f172a 100%);
+      min-height: 100vh;
+      color: #f1f5f9;
+      padding-bottom: 30px;
+    }
+
+    /* HEADER MODERNO COM CIDADE */
+    .hero {
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(2px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.35);
+      padding: 28px 20px 24px;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #38bdf8, #a78bfa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .city-badge {
+      display: inline-flex;
+      align-items: center;
+      background: #1e293b;
+      padding: 5px 16px;
+      border-radius: 60px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #facc15;
+      gap: 8px;
+      margin-left: 12px;
+      vertical-align: middle;
+      border: 1px solid #facc1540;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .city-badge i {
+      font-style: normal;
+      font-size: 1.1rem;
+    }
+
+    .hero p {
+      color: #94a3b8;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .badge-24h {
+      display: inline-block;
+      background: #22c55e20;
+      backdrop-filter: blur(4px);
+      border: 1px solid #22c55e40;
+      border-radius: 40px;
+      padding: 4px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 12px;
+      color: #86efac;
+    }
+
+    .location-highlight {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #0f172a;
+      margin-top: 15px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+    }
+
+    /* CONTAINER PRINCIPAL */
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 18px;
+    }
+
+    /* TÍTULOS */
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 20px 0 14px 0;
+      font-weight: 600;
+      font-size: 1.35rem;
+      border-left: 4px solid #38bdf8;
+      padding-left: 14px;
+    }
+
+    .section-title span {
+      font-size: 0.8rem;
+      background: #1e293b;
+      padding: 4px 12px;
+      border-radius: 30px;
+      color: #94a3b8;
+    }
+
+    /* GRADE DE SERVIÇOS */
+    .services-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .service-card {
+      background: #1e293b;
+      border-radius: 24px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid rgba(56, 189, 248, 0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .service-card:hover {
+      background: #2d3a52;
+      transform: translateX(4px);
+      border-color: #38bdf880;
+    }
+
+    .service-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .service-icon {
+      font-size: 2rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .service-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .service-price {
+      font-weight: 800;
+      background: #0f172a;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      color: #facc15;
+      letter-spacing: 0.5px;
+    }
+
+    .active-service {
+      background: linear-gradient(135deg, #2d3e5f, #1e2a44);
+      border-left: 5px solid #facc15;
+      box-shadow: 0 6px 12px -6px #00000050;
+    }
+
+    /* DISTÂNCIA */
+    .distance-area {
+      background: #111827;
+      border-radius: 32px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      border: 1px solid #334155;
+    }
+
+    .distance-label {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .km-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f172a;
+      border-radius: 60px;
+      padding: 4px 16px;
+      border: 1px solid #334155;
+      transition: all 0.2s;
+    }
+
+    .km-input-wrapper:focus-within {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px #38bdf840;
+    }
+
+    .km-input-wrapper input {
+      background: transparent;
+      border: none;
+      padding: 14px 0;
+      font-size: 1.35rem;
+      font-weight: 600;
+      width: 100%;
+      color: #facc15;
+      outline: none;
+    }
+
+    .km-input-wrapper span {
+      font-weight: 700;
+      color: #94a3b8;
+    }
+
+    /* ORÇAMENTO DETALHADO */
+    .budget-card {
+      background: #1a2538;
+      border-radius: 32px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 15px 30px -12px black;
+      border: 1px solid #2d3a4e;
+    }
+
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px dashed #334155;
+      font-size: 1rem;
+    }
+
+    .budget-row.total-row {
+      border-bottom: none;
+      margin-top: 8px;
+      padding-top: 18px;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #facc15;
+    }
+
+    .budget-label {
+      color: #cbd5e1;
+    }
+
+    .budget-value {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .total-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #22c55e;
+      text-shadow: 0 0 5px #22c55e30;
+    }
+
+    /* BOTÃO WHATSAPP */
+    .btn-whatsapp {
+      background: linear-gradient(95deg, #25D366, #128C7E);
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+      margin-top: 10px;
+    }
+
+    .btn-whatsapp:hover {
+      transform: scale(1.01);
+      filter: brightness(1.05);
+      box-shadow: 0 12px 22px rgba(0,0,0,0.4);
+    }
+
+    .alert-message {
+      background: #7f1a1a80;
+      border-left: 4px solid #ef4444;
+      padding: 12px;
+      border-radius: 18px;
+      margin: 10px 0;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #475569;
+      margin-top: 35px;
+    }
+
+    .city-footer {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #1e293b60;
+      padding: 3px 12px;
+      border-radius: 30px;
+      margin-top: 10px;
+      font-size: 0.7rem;
+    }
+
+
+    .emergency-card {
+      margin: 20px 0 8px;
+      padding: 18px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(127,29,29,.92), rgba(69,10,10,.9));
+      border: 1px solid rgba(248,113,113,.45);
+      box-shadow: 0 12px 26px -14px #000;
+      text-align: center;
+    }
+
+    .emergency-card h2 { font-size: 1.25rem; margin-bottom: 6px; }
+    .emergency-card p { color: #fecaca; font-size: .86rem; line-height: 1.45; margin-bottom: 13px; }
+
+    .btn-emergency, .btn-location {
+      width: 100%;
+      border: 0;
+      border-radius: 999px;
+      padding: 14px 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .btn-emergency { background: #ef4444; color: #fff; font-size: 1rem; }
+    .btn-emergency:hover, .btn-location:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-location { margin-top: 10px; background: #172554; color: #bfdbfe; border: 1px solid #1d4ed8; }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 18px 0 6px;
+    }
+    .status-item {
+      background: #111827;
+      border: 1px solid #273449;
+      border-radius: 18px;
+      padding: 10px 8px;
+      text-align: center;
+      font-size: .72rem;
+      color: #cbd5e1;
+      line-height: 1.35;
+    }
+    .status-item strong { display:block; color:#f8fafc; font-size:.78rem; margin-bottom:2px; }
+
+    .notice-box {
+      background: rgba(30,41,59,.72);
+      border: 1px solid #334155;
+      border-radius: 18px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      color: #94a3b8;
+      font-size: .78rem;
+      line-height: 1.5;
+    }
+
+    .location-status {
+      margin-top: 8px;
+      font-size: .75rem;
+      color: #86efac;
+      min-height: 18px;
+      text-align: center;
+    }
+
+    @media (max-width: 500px) {
+      .service-card {
+        padding: 12px 14px;
+      }
+      .service-name {
+        font-size: 0.95rem;
+      }
+      .hero h1 {
+        font-size: 1.6rem;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .city-badge {
+        margin-left: 0;
+        font-size: 0.85rem;
+        padding: 4px 12px;
+      }
+      .location-highlight {
+        font-size: 0.75rem;
+      }
+      .status-strip { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>
+    HelpCar 🚗 
+    <span class="city-badge">
+      <i>📍</i> Rio de Janeiro & Mangaratiba
+    </span>
+  </h1>
+  <p>Socorro e mecânica móvel • Atendimento no Rio de Janeiro, Grande Rio e Costa Verde</p>
+  <div class="badge-24h">✓ Atendimento móvel • Mecânico profissional • Orçamento antes da saída</div>
+  <div class="location-highlight">
+    📍 Rio de Janeiro • Grande Rio &nbsp; | &nbsp; 🌊 Mangaratiba • Muriqui • Sahy • Itacuruçá • Conceição de Jacareí
+  </div>
+</div>
+
+<div class="container">
+  <div class="emergency-card">
+    <h2>🆘 Seu carro parou agora?</h2>
+    <p>Use o atendimento rápido para informar sua região, veículo e localização. O diagnóstico e o deslocamento são confirmados pelo WhatsApp.</p>
+    <button class="btn-emergency" id="emergencyBtn">🚨 PRECISO DE SOCORRO AGORA</button>
+  </div>
+
+  <div class="status-strip">
+    <div class="status-item"><strong>🕐 Horário</strong>07h às 22h</div>
+    <div class="status-item"><strong>🚗 Atendimento</strong>No local</div>
+    <div class="status-item"><strong>💬 Confirmação</strong>Pelo WhatsApp</div>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <div class="section-title">
+    📋 Escolha o serviço
+    <span>atendimento móvel</span>
+  </div>
+  <div class="services-grid" id="servicesList">
+    <!-- serviços via JS -->
+  </div>
+
+  <!-- REGIÃO E LOCALIZAÇÃO -->
+  <div class="distance-area">
+    <div class="distance-label">
+      <span>📍 Onde está o veículo?</span>
+      <span style="color:#94a3b8">deslocamento confirmado no WhatsApp</span>
+    </div>
+    <div class="km-input-wrapper" style="padding: 8px 12px;">
+      <select id="regiaoSelect" onchange="calcularTotal()" style="width:100%; background:transparent; border:none; color:#facc15; font-size:1rem; font-weight:700; outline:none; padding:10px 0;">
+        <option value="rio" style="color:#0f172a;">Rio de Janeiro / Grande Rio</option>
+        <option value="mangaratiba" style="color:#0f172a;">Mangaratiba / Costa Verde</option>
+      </select>
+    </div>
+    <div class="km-input-wrapper" style="margin-top:10px;">
+      <input type="text" id="localInput" placeholder="Digite bairro, cidade ou ponto de referência">
+      <span>📌</span>
+    </div>
+    <button type="button" class="btn-location" id="locationBtn">📍 Usar minha localização atual</button>
+    <div class="location-status" id="locationStatus"></div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;">
+      <div class="km-input-wrapper">
+        <input type="text" id="veiculoInput" placeholder="Marca e modelo">
+      </div>
+      <div class="km-input-wrapper">
+        <input type="text" id="anoInput" placeholder="Ano">
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; margin-top: 8px; color: #6c86a3; line-height:1.4;">
+      🚐 O valor do deslocamento é confirmado antes da saída, conforme sua localização, trânsito, pedágio e distância.
+    </div>
+  </div>
+
+  <!-- ORÇAMENTO DETALHADO -->
+  <div class="budget-card">
+    <div style="margin-bottom: 12px; font-weight: 600; letter-spacing: -0.2px; display: flex; align-items: center; gap: 8px;">
+      🧾 ESTIMATIVA DE ATENDIMENTO 
+      <span style="font-size: 0.7rem; background: #2d3a50; padding: 2px 10px; border-radius: 20px;">Rio + Costa Verde</span>
+    </div>
+    <div class="budget-row">
+      <span class="budget-label">🔧 Serviço selecionado:</span>
+      <span class="budget-value" id="servicoNomeDisplay">—</span>
+    </div>
+    <div class="budget-row">
+      <span class="budget-label">💵 Valor do serviço:</span>
+      <span class="budget-value" id="precoServicoDisplay">R$ 0,00</span>
+    </div>
+    <div class="budget-row">
+      <span class="budget-label">🚐 Taxa inicial da região:</span>
+      <span class="budget-value" id="taxaBaseDisplay">—</span>
+    </div>
+    <div class="budget-row">
+      <span class="budget-label">📍 Região selecionada:</span>
+      <span class="budget-value" id="regiaoDisplay">Rio de Janeiro / Grande Rio</span>
+    </div>
+    <div class="budget-row total-row">
+      <span class="budget-label" style="font-size: 1.25rem;">💎 ESTIMATIVA INICIAL:</span>
+      <span class="total-value" id="totalDisplay">R$ 0,00</span>
+    </div>
+    <div class="notice-box">
+      ℹ️ A estimativa soma o valor inicial do serviço com a taxa inicial da região. Distâncias maiores, pedágio, peças e reparos adicionais são confirmados antes da saída ou após o diagnóstico.
+    </div>
+  </div>
+
+  <!-- BOTÃO WHATSAPP -->
+  <button class="btn-whatsapp" id="whatsappBtn">
+    📲 Solicitar atendimento no WhatsApp →
+  </button>
+  <footer>
+    🚗 HelpCar - Socorro & Mecânica Móvel • Rio de Janeiro, Grande Rio e Costa Verde • 07h às 22h
+    <div class="city-footer">📍 Atendimento móvel: Rio de Janeiro • Grande Rio • Mangaratiba • Costa Verde</div>
+  </footer>
+</div>
+
+<script>
+  // ======================= CATÁLOGO DE SERVIÇOS =====================
+  const servicosCatalogo = [
+    { id: "socorro", nome: "Socorro imediato / carro parado", preco: 120, icone: "🆘", desc: "Avaliação inicial no local • a partir de" },
+    { id: "bateria", nome: "Auxílio de bateria", preco: 100, icone: "🔋", desc: "Chupeta, teste e orientação • a partir de" },
+    { id: "pneu", nome: "Troca de pneu / estepe", preco: 80, icone: "🛞", desc: "Troca no local • a partir de" },
+    { id: "nao_liga", nome: "Carro não liga", preco: 120, icone: "🚗⚡", desc: "Diagnóstico inicial no local • a partir de" },
+    { id: "pane_eletrica", nome: "Pane elétrica", preco: 150, icone: "⚡🔌", desc: "Fusíveis, carga, partida e circuito • a partir de" },
+    { id: "diagnostico", nome: "Diagnóstico eletrônico", preco: 150, icone: "💻🔧", desc: "Scanner profissional • a partir de" },
+    { id: "arrefecimento", nome: "Superaquecimento", preco: 150, icone: "🌡️", desc: "Mangueira, vazamento e avaliação • a partir de" },
+    { id: "correia", nome: "Correia auxiliar", preco: 180, icone: "⚙️", desc: "Inspeção ou substituição simples • a partir de" },
+    { id: "outro", nome: "Outro problema", preco: 120, icone: "🧰", desc: "Avaliação mecânica inicial • a partir de" }
+  ];
+
+  let servicoSelecionado = null;
+  let precoServicoAtual = 0;
+  let nomeServicoAtual = "";
+  const taxasRegiao = { rio: 60, mangaratiba: 80 };
+
+  // Elementos DOM
+  const servicesGrid = document.getElementById("servicesList");
+  const regiaoSelect = document.getElementById("regiaoSelect");
+  const localInput = document.getElementById("localInput");
+  const veiculoInput = document.getElementById("veiculoInput");
+  const anoInput = document.getElementById("anoInput");
+  const locationBtn = document.getElementById("locationBtn");
+  const locationStatus = document.getElementById("locationStatus");
+  const emergencyBtn = document.getElementById("emergencyBtn");
+  let localizacaoGps = "";
+  const servicoNomeSpan = document.getElementById("servicoNomeDisplay");
+  const precoServicoSpan = document.getElementById("precoServicoDisplay");
+  const regiaoSpan = document.getElementById("regiaoDisplay");
+  const taxaBaseSpan = document.getElementById("taxaBaseDisplay");
+  const totalSpan = document.getElementById("totalDisplay");
+  const whatsBtn = document.getElementById("whatsappBtn");
+
+  // Renderizar cards de serviço com efeito e cidade implícita
+  function renderizarServicos() {
+    servicesGrid.innerHTML = "";
+    servicosCatalogo.forEach(serv => {
+      const card = document.createElement("div");
+      card.className = "service-card";
+      if (servicoSelecionado && servicoSelecionado.id === serv.id) {
+        card.classList.add("active-service");
+      }
+      card.innerHTML = `
+        <div class="service-info">
+          <div class="service-icon">${serv.icone}</div>
+          <div>
+            <div class="service-name">${serv.nome}</div>
+            <div style="font-size: 0.7rem; color: #9ca3af;">${serv.desc}</div>
+          </div>
+        </div>
+        <div class="service-price">A partir de R$ ${serv.preco}</div>
+      `;
+      card.addEventListener("click", (e) => {
+        e.stopPropagation();
+        selecionarServico(serv);
+      });
+      servicesGrid.appendChild(card);
+    });
+  }
+
+  function selecionarServico(servicoObj) {
+    servicoSelecionado = servicoObj;
+    nomeServicoAtual = servicoObj.nome;
+    precoServicoAtual = servicoObj.preco;
+
+    servicoNomeSpan.innerText = `${servicoObj.icone} ${servicoObj.nome}`;
+    precoServicoSpan.innerText = `A partir de R$ ${precoServicoAtual.toFixed(2)}`;
+
+    // Atualizar active class
+    document.querySelectorAll(".service-card").forEach(card => card.classList.remove("active-service"));
+    const cardsAtuais = document.querySelectorAll(".service-card");
+    const idx = servicosCatalogo.findIndex(s => s.id === servicoObj.id);
+    if (cardsAtuais[idx]) cardsAtuais[idx].classList.add("active-service");
+
+    calcularTotal();
+  }
+
+  function calcularTotal() {
+    const regiao = regiaoSelect.value;
+    const nomeRegiao = regiao === "rio" ? "Rio de Janeiro / Grande Rio" : "Mangaratiba / Costa Verde";
+    const totalServico = servicoSelecionado ? precoServicoAtual : 0;
+    const taxaRegiao = taxasRegiao[regiao];
+
+    regiaoSpan.innerText = nomeRegiao;
+    taxaBaseSpan.innerText = `A partir de R$ ${taxaRegiao.toFixed(2)}`;
+
+    if (!servicoSelecionado) {
+      servicoNomeSpan.innerText = "❌ Nenhum serviço (selecione)";
+      precoServicoSpan.innerText = "R$ 0,00";
+      totalSpan.innerText = "A confirmar";
+    } else {
+      servicoNomeSpan.innerText = `${servicoSelecionado.icone} ${servicoSelecionado.nome}`;
+      precoServicoSpan.innerText = `A partir de R$ ${precoServicoAtual.toFixed(2)}`;
+      totalSpan.innerText = `A partir de R$ ${(totalServico + taxaRegiao).toFixed(2)}`;
+    }
+    return { nomeRegiao, totalServico, taxaRegiao };
+  }
+
+  window.calcularTotal = calcularTotal;
+
+  // Função WhatsApp para Rio de Janeiro e Mangaratiba
+  function chamarWhatsApp() {
+    if (!servicoSelecionado) {
+      const existingAlert = document.querySelector(".alert-message");
+      if (existingAlert) existingAlert.remove();
+      const alertDiv = document.createElement("div");
+      alertDiv.className = "alert-message";
+      alertDiv.innerHTML = "⚠️ Por favor, selecione um serviço antes de solicitar o atendimento!";
+      const container = document.querySelector(".container");
+      container.insertBefore(alertDiv, whatsBtn);
+      setTimeout(() => { if (alertDiv) alertDiv.remove(); }, 2800);
+      return;
+    }
+
+    const regiao = regiaoSelect.value;
+    const nomeRegiao = regiao === "rio" ? "Rio de Janeiro / Grande Rio" : "Mangaratiba / Costa Verde";
+    const local = localInput.value.trim() || "Não informado";
+    const veiculo = veiculoInput.value.trim() || "Não informado";
+    const ano = anoInput.value.trim() || "Não informado";
+    const taxaRegiao = taxasRegiao[regiao];
+    const estimativa = precoServicoAtual + taxaRegiao;
+    const gps = localizacaoGps || "Não enviada";
+
+    const mensagem = `🆘 *HELPCAR - SOCORRO & MECÂNICA MÓVEL* 🚗
+
+📍 *REGIÃO:* ${nomeRegiao}
+📌 *LOCAL / BAIRRO:* ${local}
+🚘 *VEÍCULO:* ${veiculo}
+📅 *ANO:* ${ano}
+🛰️ *LOCALIZAÇÃO GPS:* ${gps}
+✅ *Serviço solicitado:* ${servicoSelecionado.icone} ${servicoSelecionado.nome}
+💰 *Valor inicial do serviço:* a partir de R$ ${precoServicoAtual.toFixed(2)}
+🚐 *Taxa inicial da região:* a partir de R$ ${taxaRegiao.toFixed(2)}
+💵 *Estimativa inicial:* a partir de R$ ${estimativa.toFixed(2)}
+──────────────────
+ℹ️ *Observação:* o valor final pode variar conforme diagnóstico, peças necessárias, distância, trânsito e pedágio. Tudo é confirmado antes da saída ou após o diagnóstico.
+
+🕐 *Horário regular:* 07h às 22h.
+📲 Se necessário, envie também sua localização atual pelo WhatsApp para confirmarmos o deslocamento.`;
+
+    const numeroWhats = "5521965597917";
+    let telefone = numeroWhats.replace(/\D/g, '');
+    if (!telefone.startsWith('55')) telefone = '55' + telefone;
+    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, "_blank");
+  }
+
+  locationBtn.addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      locationStatus.innerText = "Seu navegador não permite localização automática. Digite o bairro ou ponto de referência.";
+      return;
+    }
+    locationStatus.innerText = "Obtendo sua localização…";
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const lat = pos.coords.latitude.toFixed(6);
+        const lon = pos.coords.longitude.toFixed(6);
+        localizacaoGps = `https://maps.google.com/?q=${lat},${lon}`;
+        locationStatus.innerText = "✅ Localização adicionada à solicitação.";
+      },
+      () => {
+        locationStatus.innerText = "Não foi possível obter a localização. Digite o bairro ou ponto de referência.";
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+    );
+  });
+
+  emergencyBtn.addEventListener("click", () => {
+    const servicoSocorro = servicosCatalogo.find(s => s.id === "socorro");
+    if (servicoSocorro) selecionarServico(servicoSocorro);
+    document.querySelector(".distance-area").scrollIntoView({ behavior: "smooth", block: "start" });
+    localInput.focus({ preventScroll: true });
+  });
+
+  whatsBtn.addEventListener("click", chamarWhatsApp);
+
+  // Inicialização automática: selecionar primeiro serviço como padrão
+  function inicializarComServicoPadrao() {
+    if (servicosCatalogo.length > 0 && !servicoSelecionado) {
+      selecionarServico(servicosCatalogo[0]);
+    } else {
+      calcularTotal();
+    }
+  }
+
+  renderizarServicos();
+  inicializarComServicoPadrao();
+  calcularTotal();
+
+  window.addEventListener("load", () => {
+    calcularTotal();
+    // Recalcular após carregamento completo
+  });
+</script>
+</body>
+</html>
