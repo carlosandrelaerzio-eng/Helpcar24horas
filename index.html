@@ -706,7 +706,7 @@ function gtag_report_conversion(url) {
     if (!telefone.startsWith('55')) telefone = '55' + telefone;
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
     gtag_report_conversion(url);
-
+}
   locationBtn.addEventListener("click", () => {
     if (!navigator.geolocation) {
       locationStatus.innerText = "Seu navegador não permite localização automática. Digite o bairro ou ponto de referência.";
