@@ -705,8 +705,7 @@ function gtag_report_conversion(url) {
     let telefone = numeroWhats.replace(/\D/g, '');
     if (!telefone.startsWith('55')) telefone = '55' + telefone;
     const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, "_blank");
-  }
+    gtag_report_conversion(url);
 
   locationBtn.addEventListener("click", () => {
     if (!navigator.geolocation) {
